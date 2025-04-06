@@ -7,8 +7,23 @@ app = Flask(__name__)
 # Load the model
 pipe = pickle.load(open('pipe.pkl', 'rb'))
 
+teams = [
+    'Australia', 'India', 'Bangladesh', 'New Zealand', 'South Africa', 
+    'England', 'West Indies', 'Afghanistan', 'Pakistan', 'Sri Lanka'
+]
+
+cities = [
+    'Colombo', 'Mirpur', 'Johannesburg', 'Dubai', 'Auckland', 'Cape Town', 
+    'London', 'Pallekele', 'Barbados', 'Sydney', 'Melbourne', 'Durban', 
+    'St Lucia', 'Wellington', 'Lauderhill', 'Hamilton', 'Centurion', 
+    'Manchester', 'Abu Dhabi', 'Mumbai', 'Nottingham', 'Southampton', 
+    'Mount Maunganui', 'Chittagong', 'Kolkata', 'Lahore', 'Delhi', 
+    'Nagpur', 'Chandigarh', 'Adelaide', 'Bangalore', 'St Kitts', 'Cardiff', 
+    'Christchurch', 'Trinidad'
+]
+
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def index():
     prediction = None
     if request.method == 'POST':
         batting_team = request.form['batting_team']
@@ -26,13 +41,14 @@ def home():
         input_df = pd.DataFrame(
             {'batting_team': [batting_team], 'bowling_team': [bowling_team], 'city': [city], 
             'current_score': [current_score], 'balls_left': [balls_left], 
-            'wicket_left': [wickets_left], 'current_run_rate': [crr], 'last_five': [last_five]}
+            'wicket_left': [wickets], 'current_run_rate': [crr], 'last_five': [last_five]}
         )
+
 
         result = pipe.predict(input_df)
         prediction = int(result[0])
 
-    return render_template('index.html', prediction=prediction)
+    return render_template('index.html', teams=sorted(teams), cities=sorted(cities), prediction=prediction)
 
 if __name__ == '__main__':
     app.run(debug=True)
