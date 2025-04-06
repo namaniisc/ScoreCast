@@ -5,5 +5,22 @@
 </head>
 <body>
     <h1>Hey there! Ready to predict some cricket scores?</h1>
+    <form method="POST">
+        <label for="batting_team">Batting Team:</label>
+        <input type="text" id="batting_team" name="batting_team" required><br>
+        <label for="bowling_team">Bowling Team:</label>
+        <input type="text" id="bowling_team" name="bowling_team" required><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br>
+        <label for="current_score">Current Score:</label>
+        <input type="number" id="current_score" name="current_score" required><br>
+        <label for="overs">Overs Completed:</label>
+        <input type="number" step="0.1" id="overs" name="overs" required><br>
+        <label for="wickets">Wickets Fallen:</label>
+        <input type="number" id="wickets" name="wickets" required><br>
+        <label for="last_five">Runs in Last 5 Overs:</label>
+        <input type="number" id="last_five" name="last_five" required><br>
+        <button type="submit">Predict Score</button>
+    </form>
 </body>
 </html>
